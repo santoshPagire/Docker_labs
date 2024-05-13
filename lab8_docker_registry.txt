@@ -1,0 +1,39 @@
+1)What is a Docker Registry?
+
+=> It is storage and distribution system for named Docker images.
+
+2)By default, the Docker engine interacts with ?
+
+=> DockerHub
+
+3)Which command is used for Login to a self-hosted registry?
+
+=> docker login [SERVER]
+
+4)Run a registry server with name equals to my-registry using registry:2 image with host port set to 5000, and restart policy set to always. 
+
+=>docker run -d -p 5000:5000 --restart=always --name my-registry registry:2
+
+5)Now its time to push some images to our registry server. Let's push two images for now .i.e. nginx:latest and httpd:latest.
+
+Note: Don't forget to pull them first.
+
+=>a)docker pull nginx:latest
+    docker image tag nginx:latest localhost:5000/nginx:latest
+    docker push localhost:5000/nginx:latest
+
+  b)docker pull httpd:latest 
+    docker image tag httpd:latest localhost:5000/httpd:latest 
+    docker push localhost:5000/httpd:latest
+
+6)Let's remove all the dangling images we have locally. Use docker image prune -a to remove them. How many images do we have now?
+
+=> use docker image ls command   Ans:1
+
+7)Stop and remove the my-registry container.
+
+=> docker stop my-registry 
+   docker rm my-registry
+docker pull nginx:latest then docker image tag nginx:latest localhost:5000/nginx:latest and finally push it using docker push localhost:5000/nginx:latest.
+
+=>

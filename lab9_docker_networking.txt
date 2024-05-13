@@ -1,0 +1,44 @@
+1)Explore the current setup and identify the number of networks that exist on this system.
+
+=> docker network ls
+
+2)What is the ID associated with the bridge network?
+
+=> To check ID use same command i.e docker network ls
+
+3)We just ran a container named alpine-1. Identify the network it is attached to.
+
+=> docker inspect alpine-1   ans: host
+
+4)What is the subnet configured on bridge network?
+
+=> docker network inspect bridge   ans: "Subnet": "172.12.0.0/24"
+
+5)Run a container named alpine-2 using the alpine image and attach it to the none network.
+
+=> ocker run --name alpine-2 --network=none alpine
+
+6)Create a new network named wp-mysql-network using the bridge driver. Allocate subnet 182.18.0.1/24. Configure Gateway 182.18.0.1
+
+=> docker network create --driver bridge --subnet 182.18.0.1/24 --gateway 182.18.0.1 wp-mysql-network
+=> docker network inspect wp-mysql-network
+   229ac70cebb60786347c2c08fa372a66f4fbc84aaa30ee730ebd4ce5fbeb842f
+
+7)Deploy a mysql database using the mysql:5.6 image and name it mysql-db. Attach it to the newly created network wp-mysql-network
+
+Set the database password to use db_pass123. The environment variable to set is MYSQL_ROOT_PASSWORD
+
+=>docker run -d -e MYSQL_ROOT_PASSWORD=db_pass123 --name mysql-db --network wp-mysql-network mysql:5.6
+
+
+8)Deploy a web application named webapp using the kodekloud/simple-webapp-mysql image. Expose the port to 38080 on the host.
+
+The application makes use of two environment variable:
+1: DB_Host with the value mysql-db.
+2: DB_Password with the value db_pass123.
+Make sure to attach it to the newly created network called wp-mysql-network.
+
+Also make sure to link the MySQL and the webapp container.
+
+=> docker run --network=wp-mysql-network -e DB_Host=mysql-db -e DB_Password=db_pass123 -p 38080:8080 --name webapp --link mysql-db:mysql-db -d kodekloud/simple-webapp-mysql
+   4deb8f2490a33a8066cfec174ad65f7f68481c2296af9e7e12b73f806283a45e

@@ -1,0 +1,18 @@
+1) sudo docker run [module] => through this we can run images using docker
+
+2) sudo docker ps => It list out currently running containers
+
+3) sudo docker ps -a = It list out all runnning as well as stopped containers
+
+4) sudo docker stop [container_name] = It will stopped the running container
+
+5) sudo docker rm [continer_name] = It will permenently delete container from process
+
+6) sudo docker images = It list out all image created using docker previously
+
+7) sudo docker rmi [repository_name] = it is used to delete an image from docker which is not in running or stopped state to make sure entier container is deleted with its image file
+
+8) sudo docker pull [repo] = it is used to pull on image and not runnning the container
+
+9)sudo docker run -d --name "{name}" [repo] = this will create a manual name for the container
+
